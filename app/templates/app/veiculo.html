@@ -1,0 +1,47 @@
+{% extends 'crud.html' %}
+{% block title %}Veículos{% endblock %}
+{% block page_title %}{% if edit %}Editando Veículo{% else %} Cadastrando Veículo{% endif %}{% endblock %}
+{% block toptoolbar %}
+    <div class="row g-3 mb-3">
+        <div class="col">
+            <a href="{% url 'listar_veiculos' %}" class="btn btn-sm btn-secondary" role="button"
+               title="Cancelar" data-bs-toggle="tooltip" data-bs-placement="right">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <button type="submit" value="Salvar" class="btn btn-sm btn-primary">
+                <i class="bi bi-check2"></i> Salvar
+            </button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row row-cols-1 row-cols-md-2 g-2">
+                <div class="col">
+
+                    <label for="{{ form.modelo.id_for_label }}">Modelo:</label>
+                    {{ form.modelo }}
+                </div>
+
+                <div class="col">
+                    <label for="{{ form.marca.id_for_label }}">Marca:</label>
+                    {{ form.marca }}
+                </div>
+
+                <div class="col">
+                    <label for="{{ form.ano.id_for_label }}">Ano:</label>
+                    {{ form.ano }}
+                </div>
+
+                <div class="col">
+                    <label for="{{ form.valor.id_for_label }}">Valor:</label>
+                    {{ form.valor }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
