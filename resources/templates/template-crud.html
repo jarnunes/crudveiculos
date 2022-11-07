@@ -1,0 +1,16 @@
+{% extends 'commons/internal_base.html' %}
+{% load static %}
+{% block page_title %}Veículo{% endblock %}
+{% block menuitems %}
+    {% include 'partial/_navigator.html' %}
+{% endblock %}
+{% block cleancontainer %}
+    <form method="POST" id="form">
+        {% csrf_token %}
+        <div class="top-toolbar">{% block crudtoolbar %}{% endblock %}</div>
+        <div class="clean-container">{% block crudcontainer %}{% endblock %}</div>
+    </form>
+{% endblock %}
+{% block custom_scripts %}
+    <script src="{% static 'js/crud.js' %}"></script>
+{% endblock %}

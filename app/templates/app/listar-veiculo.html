@@ -1,32 +1,12 @@
-{% extends 'base.html' %}
-{% load tags %}
-{% block title %}Veículos{% endblock %}
+{% extends 'template-base.html' %}
+{% load commons %}
+{% load static %}
 {% block page_title %}Listando veículos{% endblock %}
-{% block toptoolbar %}
-
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start  g-3 mb-3">
-        <div class="col-12 col-lg-auto me-lg-auto mb-2 justify-content-center">
-            <div class="row">
-                <div class="col">
-                    <a href="{% url 'cadastrar_veiculos' %}" class="btn btn-sm btn-primary" role="button">
-                        <i class="bi bi-plus-lg"></i> Novo
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <form method="GET" action="{% url 'listar_veiculos' %}" class="col-12 col-lg-auto mb-3 mb-lg-0 "
-              role="search">
-            <input name="search" type="search" class="form-control" placeholder="Buscar..."
-                   autocomplete="off" aria-label="Search">
-        </form>
-    </div>
-
+{% block toolbar %}
+    {% include 'app/_toolbar.html' %}
 {% endblock %}
 
-
-{% block container %}
-
+{% block cleancontainer %}
     <table id="tabela" class="table table-striped">
         <thead class="table-secondary">
         <tr>
@@ -54,7 +34,8 @@
                 <td>{{ veiculo.marca }}</td>
                 <td>{{ veiculo.modelo }}</td>
                 <td>{{ veiculo.ano }}</td>
-                <td>{{ veiculo.valor|currencyf }}</td>
+{#                <td>{{ veiculo.valor|currencyf }}</td>#}
+                <td>{{ veiculo.valor }}</td>
             </tr>
         {% endfor %}
         {% include 'components/empty-table.html' with data_object=veiculos %}
@@ -66,4 +47,6 @@
             {% include 'components/pagination.html' with page_obj=veiculos is_ajax_pagination=True %}
         </div>
     </div>
+
+    <script src="{% static 'js/crud.js' %}"></script>
 {% endblock %}

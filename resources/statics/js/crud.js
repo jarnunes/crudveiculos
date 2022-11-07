@@ -19,6 +19,37 @@ function deleteVeiculo(idVeiculo) {
         .then(data => {
             let idModal = `modal_${id}`;
             ModalUtils.closeAndRemoveModal(idModal, `containerModal_${id}`);
-            AjaxUtils.refreshContainer();
+            AjaxUtils.refresh('cleanContainer');
         })
+}
+
+//Search
+let search = document.getElementById('inputSearch')
+search.addEventListener('keypress', (e) => {
+    if (e.code === 'Enter') {
+        const searchValue = e.target.value;
+        const queryString = `search=${searchValue}`
+        getVeiculos(queryString);
+    }
+})
+
+// navigation
+function navigate(page) {
+    let parameters = JSUtils.getQueryParameters();
+    parameters.set('page', page);
+    getVeiculos(parameters);
+}
+
+function getVeiculos(queryString) {
+    const url = `listar${queryString === null ? '' : '?' + queryString}`
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+        }
+    }).then(res => {
+        let newurl = res['url'];
+        window.history.pushState({path: newurl}, '', newurl);
+        AjaxUtils.refresh('cleanContainer');
+    })
 }

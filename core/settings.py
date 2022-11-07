@@ -17,9 +17,9 @@ SECRET_KEY = 'django-insecure-d+zn-yk(a#z&7^$(u(2e7dfeh(1%coz_=5rb%(f%jern)+3r%9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'https://jnunes-crudveiculos.herokuapp.com/', 'jnunes-crudveiculos.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'crudveiculos.jnunesc.com.br', '52.67.219.128']
 
-CSRF_TRUSTED_ORIGINS = ['https://jnunes-crudveiculos.herokuapp.com/', 'https://jnunes-crudveiculos.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['http://crudveiculos.jnunesc.com.br', 'https://jnunes-crudveiculos.herokuapp.com']
 
 # Application definition
 
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'commons'
 ]
 
 MIDDLEWARE = [
@@ -71,18 +72,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('APP_DB_NAME'),
-        'USER': env('APP_DB_USERNAME'),
-        'PASSWORD': env('APP_DB_PASSWORD'),
-        'HOST': env('APP_DB_HOST'),
-        'PORT': env('APP_DB_POST'),
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': env('DJGDB_NAME'),
+    #     'USER': env('DJGDB_USERNAME'),
+    #     'PASSWORD': env('DJGDB_PASSWORD'),
+    #     'HOST': env('DJGDB_HOST'),
+    #     'PORT': env('DJGDB_PORT'),
+    # }
 }
 
 # Password validation

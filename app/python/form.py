@@ -1,5 +1,5 @@
-from django.forms import forms
-from django.forms import ModelForm, TextInput, FloatField, DateTimeField, NumberInput, DateTimeInput
+from django.forms import ModelForm, TextInput, NumberInput
+
 from app.models import Veiculo
 
 

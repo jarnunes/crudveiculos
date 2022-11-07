@@ -1,7 +1,6 @@
-{% extends 'crud.html' %}
-{% block title %}Veículos{% endblock %}
+{% extends 'template-crud.html' %}
 {% block page_title %}{% if edit %}Editando Veículo{% else %} Cadastrando Veículo{% endif %}{% endblock %}
-{% block toptoolbar %}
+{% block crudtoolbar %}
     <div class="row g-3 mb-3">
         <div class="col">
             <a href="{% url 'listar_veiculos' %}" class="btn btn-sm btn-secondary" role="button"
@@ -15,7 +14,7 @@
     </div>
 {% endblock %}
 
-{% block container %}
+{% block crudcontainer %}
     <div class="card">
         <div class="card-body">
             <div class="row row-cols-1 row-cols-md-2 g-2">
@@ -42,6 +41,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
-

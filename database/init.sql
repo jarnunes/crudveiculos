@@ -1,0 +1,16 @@
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES (1, 'Chevrolet', 'Agile', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Astra Hatch', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Blazer', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Camaro', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Cobalt', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Sonic', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Vectra', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Chevrolet', 'Agile', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Fiat', 'Bravo', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Fiat', 'Argo', 2015, 60000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Fiat', 'Palio', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Ford', 'Ka', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Ford', 'Ka+', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Ford', 'Focus', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Ford', 'Sedan', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
+INSERT INTO app_veiculo (id, marca, modelo, ano, valor, data_cadastro) VALUES ((select max(id)+1 from app_veiculo), 'Ford', 'Fusion', 2015, 45000, '2022-11-05 22:53:20.869962 +00:00');
