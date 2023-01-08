@@ -6,7 +6,8 @@ django-environ==0.9.0
 fonttools==4.38.0
 gunicorn==20.1.0
 html5lib==1.1
-jnunes-commons==0.3.10
+jnunes-account==0.1.2
+jnunes-commons==0.3.13
 Pillow==9.3.0
 psycopg2==2.9.5
 pycparser==2.21

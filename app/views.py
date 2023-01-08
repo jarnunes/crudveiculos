@@ -1,7 +1,8 @@
 import csv
 import io
 
-from commons.python.utils import Help, Format, Utils
+from commons.python.formatter import price, date_time, datetime_now_integer
+from commons.python.helper import is_post_method, is_ajax, is_delete_method
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -10,12 +11,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
-
+from django.contrib.auth.decorators import login_required
 from app.python.form import VeiculoForm
 from .models import Veiculo
 from .python.constants import Const
+from core.settings import LOGIN_URL
 
 
+@login_required(login_url=LOGIN_URL)
 def listar_veiculos(request):
     query = request.GET.get('search')
     if query:
@@ -30,6 +33,7 @@ def listar_veiculos(request):
     return render(request=request, template_name='app/listar-veiculo.html', context=context)
 
 
+@login_required(login_url=LOGIN_URL)
 def cadastrar_veiculo(request):
     form = VeiculoForm(request.POST or None)
     if form.is_valid():
@@ -39,9 +43,10 @@ def cadastrar_veiculo(request):
     return render(request, template_name='app/veiculo.html', context={'form': form, 'edit': False})
 
 
+@login_required(login_url=LOGIN_URL)
 def editar_veiculo(request, id):
     veiculo = get_object_or_404(Veiculo, id=id)
-    if Help.is_post_method(request):
+    if is_post_method(request):
         form = VeiculoForm(request.POST, instance=veiculo)
         if form.is_valid():
             messages.success(request, 'Veículo salvo com sucesso')
@@ -52,19 +57,21 @@ def editar_veiculo(request, id):
     return render(request, template_name='app/veiculo.html', context={'form': form, 'edit': True})
 
 
+@login_required(login_url=LOGIN_URL)
 def deletar_veiculo(request, id):
-    if Help.is_ajax(request=request):
+    if is_ajax(request=request):
         veiculo = get_object_or_404(Veiculo, id=id)
         msg = f'Veículo "{veiculo.marca}" removido com sucesso!'
-        if veiculo and Help.is_delete_method(request):
+        if veiculo and is_delete_method(request):
             veiculo.delete()
             messages.success(request, msg)
             return JsonResponse({'data': 1})
 
 
+@login_required(login_url=LOGIN_URL)
 def export_csv(request):
     response = HttpResponse(content_type=Const.CONTENT_TYPE_CSV)
-    response['Content-Disposition'] = f'attachment; filename=veiculos_{Utils.datetime_now_integer()}.csv'
+    response['Content-Disposition'] = f'attachment; filename=veiculos_{datetime_now_integer()}.csv'
 
     writer = csv.writer(response)
     writer.writerow(Veiculo.get_all_fields_name())
@@ -73,6 +80,7 @@ def export_csv(request):
     return response
 
 
+@login_required(login_url=LOGIN_URL)
 def export_pdf(request):
     # crate bytestream buffer
     buf = io.BytesIO()
@@ -87,7 +95,7 @@ def export_pdf(request):
     textob.textLine(f'Marca | Modelo | Ano | Valor R$ | Cadastro')
     for vc in Veiculo.objects.all():
         textob.textLine(
-            f'{vc.marca} | {vc.modelo} | {vc.ano} | {Format.price(vc.valor)} | {Format.date_time(vc.data_cadastro)}')
+            f'{vc.marca} | {vc.modelo} | {vc.ano} | {price(vc.valor)} | {date_time(vc.data_cadastro)}')
 
     # Finish up
     c.drawText(textob)
@@ -95,9 +103,10 @@ def export_pdf(request):
     c.save()
     buf.seek(0)
 
-    return FileResponse(buf, as_attachment=True, filename=f'veiculos_{Utils.datetime_now_integer()}.pdf',
+    return FileResponse(buf, as_attachment=True, filename=f'veiculos_{datetime_now_integer()}.pdf',
                         content_type=Const.CONTENT_TYPE_PDF)
 
 
+@login_required(login_url=LOGIN_URL)
 def vehico(request):
     return render(request=request, template_name='app/vehico.html')

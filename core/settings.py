@@ -24,14 +24,15 @@ CSRF_TRUSTED_ORIGINS = ['http://crudveiculos.jnunesc.com.br', 'https://jnunes-cr
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
+    'commons',
+    'account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
-    'commons'
 ]
 
 MIDDLEWARE = [
@@ -118,10 +119,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'statics/'
+STATIC_URL = 'static/'
 
 # Em produção, habilitar o statics STATIC_ROOT e desabilitar o STATICFILES_DIRS
-STATICFILES_DIRS = [BASE_DIR / 'resources/statics/']
+STATICFILES_DIRS = [BASE_DIR / 'resources/static/']
 STATIC_ROOT = 'static/'
 
 # Default primary key field type
@@ -136,3 +137,16 @@ MESSAGE_TAGS = {
     constants.SUCCESS: 'alert-success',
     constants.INFO: 'alert-primary'
 }
+
+# Default URL settings
+HOME_REDIRECT = '/veiculos/'
+LOGIN_REDIRECT_URL = HOME_REDIRECT
+LOGIN_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/account/login'
+
+# SMTP Settings
+EMAIL_HOST = env('DJGEMAIL_HOST')
+EMAIL_PORT = env('DJGEMAIL_PORT')
+EMAIL_HOST_USER = env('DJEMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('DJEMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True

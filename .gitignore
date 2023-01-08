@@ -131,4 +131,6 @@ dmypy.json
 
 #media foler
 media
-static
+# static files except recources/static
+static/
+!resources/static
