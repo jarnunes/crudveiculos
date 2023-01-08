@@ -106,7 +106,3 @@ def export_pdf(request):
     return FileResponse(buf, as_attachment=True, filename=f'veiculos_{datetime_now_integer()}.pdf',
                         content_type=Const.CONTENT_TYPE_PDF)
 
-
-@login_required(login_url=LOGIN_URL)
-def vehico(request):
-    return render(request=request, template_name='app/vehico.html')

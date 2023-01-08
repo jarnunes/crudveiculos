@@ -4,6 +4,11 @@
 {% block menuitems %}
     {% include 'partial/_navigator.html' %}
 {% endblock %}
+
+{% block menudropdown %}
+    {% include 'partial/_user_menudropdown.html' %}
+{% endblock %}
+
 {% block cleancontainer %}
     <form method="POST" id="form">
         {% csrf_token %}

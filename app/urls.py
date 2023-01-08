@@ -9,5 +9,4 @@ urlpatterns = [
     path('deletar/<int:id>', views.deletar_veiculo, name='deletar_veiculo'),
     path('listar/export_pdf', views.export_pdf, name='export_pdf'),
     path('listar/export_csv', views.export_csv, name='export_csv'),
-    path('vehico', views.vehico, name='vehico'),
 ]

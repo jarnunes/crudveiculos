@@ -15,9 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d+zn-yk(a#z&7^$(u(2e7dfeh(1%coz_=5rb%(f%jern)+3r%9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'crudveiculos.jnunesc.com.br', '52.67.219.128']
+ALLOWED_HOSTS = ['127.0.0.1', 'crudveiculos.jnunesc.com.br', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['http://crudveiculos.jnunesc.com.br', 'https://jnunes-crudveiculos.herokuapp.com']
 
@@ -47,7 +47,11 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# A linha abaixo deve ser descomentada apenas quando debug=True para evitra o erro 500
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# A linha abaixo deve ser descomentada apenas quando o debug=False
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 ROOT_URLCONF = 'core.urls'
 

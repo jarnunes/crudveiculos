@@ -1,13 +1,13 @@
 #!/bin/bash
 
 ## FONTE:
-## https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
+## https://www.codewithharry.com/blogpost/django-deploy-nginx-gunicorn/
+
 
 # Criando o arquivo
 sudo nano /etc/systemd/system/gunicorn.socket
 ##################################################
-
-# COLAR (SEM EDIÇÃO)
+# COLAR CONTEÚDO ABAIXO
 [Unit]
 Description=gunicorn socket
 
@@ -40,6 +40,7 @@ ExecStart=/home/ubuntu/crudveiculos/venv/bin/gunicorn \
 
 [Install]
 WantedBy=multi-user.target
+##
 ##################################################
 
 # Ativando
