@@ -1,0 +1,52 @@
+{% extends 'template-base.html' %}
+{% load commons %}
+{% load static %}
+{% block page_title %}Listando veículos{% endblock %}
+{% block toolbar %}
+    {% include 'app/_toolbar.html' %}
+{% endblock %}
+
+{% block cleancontainer %}
+    <table id="tabela" class="table table-striped">
+        <thead class="table-secondary">
+        <tr>
+            <th scope="col" style="width: 150px">Actions</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Ano</th>
+            <th scope="col">Valor</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for veiculo in veiculos %}
+            <tr>
+                <td>
+                    <a href="{% url 'editar_veiculo' veiculo.id %}" class="text-decoration-none action-button"
+                       title="Editar" data-bs-toggle="tooltip" data-bs-placement="right">
+                        <i class="bi bi-pen"></i>
+                    </a>
+                    <a class="text-decoration-none action-button"
+                       title="Remover" data-bs-toggle="tooltip" data-bs-placement="right"
+                       onclick="dialogoConfirmarExclusaoVeiculo({{ veiculo.id }}, '{{ veiculo.marca }}')">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+                <td>{{ veiculo.marca }}</td>
+                <td>{{ veiculo.modelo }}</td>
+                <td>{{ veiculo.ano }}</td>
+{#                <td>{{ veiculo.valor|currencyf }}</td>#}
+                <td>{{ veiculo.valor }}</td>
+            </tr>
+        {% endfor %}
+        {% include 'components/empty-table.html' with data_object=veiculos %}
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col mt-5">
+            {% include 'components/pagination.html' with page_obj=veiculos is_ajax_pagination=True %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/crud.js' %}"></script>
+{% endblock %}

@@ -1,8 +1,9 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from commons.db.models import BaseModel
 
 
-class Veiculo(models.Model):
+class Veiculo(BaseModel):
     modelo = models.CharField(max_length=50, null=False)
     marca = models.CharField(max_length=50, null=False)
     ano = models.PositiveIntegerField(validators=[MinValueValidator(2000)], null=False)

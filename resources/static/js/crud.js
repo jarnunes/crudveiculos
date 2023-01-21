@@ -53,3 +53,16 @@ function getVeiculos(queryString) {
         AjaxUtils.refresh('cleanContainer');
     })
 }
+
+
+function selectCard(element) {
+    console.log(element)
+}
+
+function doWithThisElement(event) {
+    event = event || window.event; // IE
+    let target = event.target || event.srcElement; // IE
+
+    let id = target.id;
+    //...
+}
