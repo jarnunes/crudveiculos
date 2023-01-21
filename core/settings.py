@@ -126,7 +126,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Em produção, habilitar o statics STATIC_ROOT e desabilitar o STATICFILES_DIRS
-STATICFILES_DIRS = [BASE_DIR / 'resources/static/']
+# STATICFILES_DIRS = [BASE_DIR / 'resources/static/']
 STATIC_ROOT = 'static/'
 
 # Default primary key field type
