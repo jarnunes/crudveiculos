@@ -25,9 +25,9 @@ def listar_veiculos(request):
     if query:
         veiculos = Veiculo.objects.filter(Q(marca__icontains=query)
                                           | Q(modelo__icontains=query)
-                                          | Q(ano__exact=_to_int(query)))
+                                          | Q(ano__exact=_to_int(query))).order_by('id')
     else:
-        veiculos = Veiculo.objects.all()
+        veiculos = Veiculo.objects.get_queryset().order_by('id')
     paginator = Paginator(veiculos, per_page=5)
     page_number = request.GET.get('page')
     veiculos = paginator.get_page(page_number)
