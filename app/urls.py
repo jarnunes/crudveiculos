@@ -9,4 +9,6 @@ urlpatterns = [
     path('deletar/<int:id>', views.deletar_veiculo, name='deletar_veiculo'),
     path('listar/export_pdf', views.export_pdf, name='export_pdf'),
     path('listar/export_csv', views.export_csv, name='export_csv'),
+    path('veiculo/obter_marca/<int:id>', views.obter_marca_veiculo, name='obter_marca'),
+    path('veiculo/delete_all', views.delete_all, name='delete_all'),
 ]

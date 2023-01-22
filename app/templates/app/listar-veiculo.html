@@ -10,7 +10,7 @@
 
     <style>
         div.selected-card {
-            background: #79aec8;
+            background: #dcdcdc;
         }
 
         div.image-card {
@@ -19,119 +19,47 @@
         }
 
         div.card:hover, div.card:hover div.image-card {
-            background: #0dcaf0;
+            background: #b2b2b2;
             cursor: pointer;
         }
     </style>
-    {% for veiculo in veiculos %}
+    <div id="cardsContainer" class="row row-cols-1 ">
+        {% for veiculo in veiculos %}
 
-        <div id="{{ veiculo.id }}" class="card car-info-card" onclick="selectCard(this.id)">
-            <div class="row g-0 ">
-                <div class="col-sm-3 col-md-2 ">
-                    <div class="image-card">img</div>
-                </div>
-                <div class="col col-sm-9 ">
-                    <div class="card-body px-2 pt-2 pb-0 ">
-                        <h5 class="card-title fw-bold">{{ veiculo.modelo }}</h5>
-                        <div class="row g-0 ">
-                            <span class="col-md-3"><strong>Marca:</strong> {{ veiculo.marca }}</span>
-                            <span class="col-md-3"><strong>Ano: </strong> {{ veiculo.ano }}</span>
-                            <span class="col-md-4"><strong>Valor: </strong>{{ veiculo.valor }}</span>
-                            <small class="text-muted p-0 col-12 mt-1 mb-0">Last
-                                updated {{ veiculo.update_date }}</small>
+            <div class="col">
+                <div id="{{ veiculo.id }}" class="card car-info-card" onclick="selectCard(this.id)">
+                    <div class="row g-0 ">
+                        <div id="imageCol" class="col-sm-3 col-md-2 d-none">
+                            <div class="image-card">img</div>
+                        </div>
+                        <div class="col col-sm-9 ">
+                            <div class="card-body px-2 pt-2 pb-0 ">
+                                <h5 class="card-title fw-bold">{{ veiculo.modelo }}</h5>
+                                <div class="row g-0 ">
+                                    <span class="col-md-3"><strong>Marca:</strong> {{ veiculo.marca }}</span>
+                                    <span class="col-md-3"><strong>Ano: </strong> {{ veiculo.ano }}</span>
+                                    <span class="col-md-4"><strong>Valor: </strong>{{ veiculo.valor }}</span>
+                                    <small class="text-muted p-0 col-12 mt-1 mb-0">Last
+                                        updated {{ veiculo.update_date }}</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-
-
-
+        {% endfor %}
+    </div>
 
     <div class="row">
         <div class="col mt-5">
-            {% include 'components/pagination.html' with page_obj=veiculos is_ajax_pagination=True %}
+            {% include 'components/pagination.html' with page_obj=veiculos is_ajax_pagination=True callback="getVeiculos" %}
         </div>
     </div>
 
     <script>
-        let lista = []
 
-        function selectCard(element) {
-            if (lista.includes(element)) {
-                let index = lista.indexOf(element)
-                lista.splice(index, 1)
-            } else {
-                lista.push(element)
-            }
-            toggleSelected(element)
-            enableDisableEditElement()
-            enableDisableDeleteElement()
-            enableDisableExport()
-        }
-
-        function toggleSelected(idElement) {
-            let element = document.getElementById(idElement)
-            element.classList.toggle('selected-card')
-
-
-        }
-
-        function enableDisableEditElement() {
-            let editElement = document.getElementById('editAction')
-            if (lista.length === 1) {
-                editElement.classList.remove('disabled')
-            } else {
-                editElement.classList.add('disabled')
-            }
-        }
-
-        function enableDisableDeleteElement() {
-            let deleteElement = document.getElementById('deleteAction')
-            if (lista.length > 0) {
-                deleteElement.classList.remove('disabled')
-            } else {
-                deleteElement.classList.add('disabled')
-            }
-        }
-
-        function enableDisableExport() {
-            let exportElement = document.getElementById('exportAction')
-            if (lista.length > 0) {
-                exportElement.classList.remove('disabled')
-            } else {
-                exportElement.classList.add('disabled')
-            }
-        }
-
-        function changeViewDisplay() {
-            let classGrid = 'bi-grid'
-            let classList = 'bi-view-list'
-            let elements = document.getElementsByClassName('car-info-card')
-            Array.from(elements).forEach(element => {
-
-                console.log(element.classList)
-            })
-
-            let elementIcon = document.getElementById('changeViewId')
-            if (elementIcon.classList.contains(classGrid)) {
-                elementIcon.classList.remove(classGrid)
-                elementIcon.classList.add(classList)
-            } else {
-                elementIcon.classList.remove(classList)
-                elementIcon.classList.add(classGrid)
-            }
-        }
 
 
     </script>
-    <button id="changeView" class="btn btn-sm btn-secondary">
-        <i class="bi bi-grid"></i>
-    </button>
-    <button class="btn btn-sm btn-secondary">
-        <i class="bi bi-view-list"></i>
-    </button>
-
     <script src="{% static 'js/crud.js' %}"></script>
 {% endblock %}

@@ -4,22 +4,22 @@
         <ul class="pagination">
             <li class="page-item">
                 <a class="page-link {% if not page_obj.has_previous %}disabled{% endif %}"
-                        {% if  page_obj.has_previous %} onclick="navigate('1')" {% endif %}>&laquo;</a>
+                        {% if  page_obj.has_previous %} onclick="navigate('1', {{ callback }})" {% endif %}>&laquo;</a>
             </li>
             <li class="page-item">
                 <a class="page-link {% if not page_obj.has_previous %}disabled{% endif %}"
                         {% if page_obj.has_previous %}
-                   onclick="navigate({{ page_obj.previous_page_number }})" {% endif %} >&lsaquo;</a>
+                   onclick="navigate({{ page_obj.previous_page_number }}, {{ callback }})" {% endif %} >&lsaquo;</a>
             </li>
             {% if page_obj.paginator.num_pages > 1 %}
                 {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                         <li class="page-item active">
-                            <a class="page-link" onclick="navigate({{ num }})">{{ num }}</a>
+                            <a class="page-link" onclick="navigate({{ num }}, {{ callback }})">{{ num }}</a>
                         </li>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                         <li class="page-item">
-                            <a class="page-link" onclick="navigate({{ num }})">{{ num }}</a>
+                            <a class="page-link" onclick="navigate({{ num }}, {{ callback }})">{{ num }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -31,11 +31,11 @@
 
             <li class="page-item">
                 <a class="page-link {% if not page_obj.has_next %}disabled{% endif %}" {% if page_obj.has_next %}
-                   onclick="navigate({{ page_obj.next_page_number }})" {% endif %}>&rsaquo;</a>
+                   onclick="navigate({{ page_obj.next_page_number }}, {{ callback }})" {% endif %}>&rsaquo;</a>
             </li>
             <li class="page-item">
                 <a class="page-link {% if not page_obj.has_next %}disabled{% endif %}" {% if page_obj.has_next %}
-                   onclick="navigate({{ page_obj.paginator.num_pages }})" {% endif %} >&raquo;</a>
+                   onclick="navigate({{ page_obj.paginator.num_pages }}, {{ callback }})" {% endif %} >&raquo;</a>
             </li>
         </ul>
     </div>

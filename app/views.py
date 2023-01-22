@@ -16,13 +16,16 @@ from app.python.form import VeiculoForm
 from .models import Veiculo
 from .python.constants import Const
 from core.settings import LOGIN_URL
+import json
 
 
 @login_required(login_url=LOGIN_URL)
 def listar_veiculos(request):
     query = request.GET.get('search')
     if query:
-        veiculos = Veiculo.objects.filter(Q(marca__icontains=query) | Q(modelo__icontains=query))
+        veiculos = Veiculo.objects.filter(Q(marca__icontains=query)
+                                          | Q(modelo__icontains=query)
+                                          | Q(ano__exact=_to_int(query)))
     else:
         veiculos = Veiculo.objects.all()
     paginator = Paginator(veiculos, per_page=5)
@@ -31,6 +34,13 @@ def listar_veiculos(request):
 
     context = {'veiculos': veiculos}
     return render(request=request, template_name='app/listar-veiculo.html', context=context)
+
+
+def _to_int(value):
+    try:
+        return int(value)
+    except Exception as e:
+        print(e)
 
 
 @login_required(login_url=LOGIN_URL)
@@ -106,3 +116,39 @@ def export_pdf(request):
     return FileResponse(buf, as_attachment=True, filename=f'veiculos_{datetime_now_integer()}.pdf',
                         content_type=Const.CONTENT_TYPE_PDF)
 
+
+@login_required(login_url=LOGIN_URL)
+def obter_marca_veiculo(request, id):
+    response = {'marca': None}
+
+    if is_ajax(request):
+        veiculo = get_object_or_404(Veiculo, id=id)
+        response['marca'] = veiculo.marca
+    return JsonResponse(data=response)
+
+
+@login_required(login_url=LOGIN_URL)
+def delete_all(request):
+    if is_ajax(request) and is_post_method(request):
+        ids = _get_ids_list(request)
+        if len(ids) > 0:
+            veiculos = Veiculo.objects.filter(id__in=ids)
+            for veiculo in veiculos:
+                veiculo.delete()
+            messages.success(request, "Veiculos removidos com sucesso")
+    return JsonResponse({'code': 0, 'message': 'Veiculos removidos com sucesso'})
+
+
+def _get_ids_list(request):
+    list_ids = []
+    try:
+        for id_value in str.split(json.loads(request.body).get('ids'), sep=','):
+            list_ids.append(int(id_value))
+    except Exception as error:
+        raise Exception(error)
+
+    return list_ids
+
+
+def _to_list(value: str) -> list:
+    return str.split(value)
